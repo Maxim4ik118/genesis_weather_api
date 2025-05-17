@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/weather_api?schema=public
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
+      - APP_PORT=3000
+      - BASE_URL=${BASE_URL:-http://localhost:3000}
+      - SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - WEATHER_API_TIMEOUT=${WEATHER_API_TIMEOUT:-5000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: sh -c "npm run migrate:dev && npm run start:dev"
+
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=weather_api
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
