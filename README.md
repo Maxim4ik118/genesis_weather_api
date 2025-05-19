@@ -16,7 +16,7 @@ A NestJS-based weather subscription service that allows users to subscribe to we
 
 - Node.js (v16 or higher)
 - PostgreSQL (v12 or higher)
-- npm or yarn package manager
+- bun, npm or yarn package manager
 
 ## Installation
 
@@ -28,7 +28,7 @@ cd genesis_weather_api
 
 2. Install dependencies:
 ```bash
-npm install
+bun install
 ```
 
 3. Set up environment variables:
@@ -39,21 +39,21 @@ Edit the `.env.dev`, `.env.prod` file with your configuration values.
 
 4. Set up the database:
 ```bash
-npm run migrate:dev
+bun run migrate:dev
 ```
 4.1 (optional)To see the UI of the database:
 ```bash
-npm run studio:dev
+bun run studio:dev
 ```
 
 5. Start the application:
 ```bash
 # Development
-npm run start:dev
+bun run start:dev
 
 # Production
-npm run build
-npm run start:prod
+bun run build
+bun run start:prod
 ```
 
 ## Docker Deployment
@@ -115,15 +115,33 @@ Once the application is running, you can access the Swagger API documentation at
 http://localhost:3000/doc
 ```
 
+## Frontend
+
+The project includes a simple frontend interface that can be viewed directly in your browser. To view the frontend:
+
+1. Make sure the backend API is running (either through Docker or locally)
+2. Open the `index.html` file located in the project root directory in your web browser
+   - You can do this by double-clicking the file
+   - Or by dragging the file into your browser window
+   - Or by using the browser's "Open File" option (Ctrl+O or Cmd+O)
+
+The frontend provides a user-friendly interface for:
+- Subscribing to weather updates
+- Viewing current weather information
+- Managing your subscriptions
+- Confirming and unsubscribing from email notifications
+
+Note: The frontend requires the backend API to be running on `http://localhost:3000` to function properly.
+
 ## Available Scripts
 
-- `npm run start:dev` - Start development server with hot-reload
-- `npm run build` - Build the application
-- `npm run start:prod` - Start production server
-- `npm run test` - Run unit tests
-- `npm run test:e2e` - Run end-to-end tests
-- `npm run test:cov` - Run test coverage
-- `npm run lint` - Run linting
+- `bun run start:dev` - Start development server with hot-reload
+- `bun run build` - Build the application
+- `bun run start:prod` - Start production server
+- `bun run test` - Run unit tests
+- `bun run test:e2e` - Run end-to-end tests
+- `bun run test:cov` - Run test coverage
+- `bun run lint` - Run linting
 
 ## Project Structure
 
@@ -151,13 +169,13 @@ The project includes both unit tests and end-to-end tests. To run the tests:
 
 ```bash
 # Run unit tests
-npm run test
+bun run test
 
 # Run e2e tests
-npm run test:e2e
+bun run test:e2e
 
 # Run test coverage
-npm run test:cov
+bun run test:cov
 ```
 
 For e2e tests, make sure you have a test database configured in your `.env` file with the following settings:
