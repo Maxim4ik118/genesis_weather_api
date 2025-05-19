@@ -32,7 +32,7 @@ export class EmailService {
     city: string,
     token: string,
   ): Promise<void> {
-    const baseUrl = process.env.BASE_URL || 'http://localhost:3333';
+    const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
     const confirmationLink = `${baseUrl}/api/confirm/${token}`;
     const unsubscribeLink = `${baseUrl}/api/unsubscribe/${token}`;
 
@@ -69,7 +69,7 @@ export class EmailService {
     city: string,
     weatherData: any,
   ): Promise<void> {
-    const baseUrl = process.env.BASE_URL || 'http://localhost:3333';
+    const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
     const unsubscribeLink = `${baseUrl}/api/unsubscribe/${weatherData.token}`;
 
     const mailOptions = {

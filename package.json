@@ -11,7 +11,7 @@
     "start": "npx dotenv -e .env.prod --  nest start",
     "start:dev": "npx dotenv -e .env.dev -- nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "dotenv -e .env.prod -- node dist/src/main",
+    "start:prod": "node dist/src/main",
     "migrate:dev": "npx dotenv -e .env.dev -- npx prisma migrate deploy",
     "migrate:create": "npx dotenv -e .env.dev -- npx prisma migrate dev --create-only",
     "migrate:dev:apply": "npx dotenv -e .env.dev -- npx prisma migrate dev",

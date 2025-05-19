@@ -5,8 +5,11 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env.prod
     environment:
       - NODE_ENV=production
+      - APP_PORT=3000
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/weather_db
       - WEATHER_API_KEY=${WEATHER_API_KEY}
       - SMTP_HOST=${SMTP_HOST}
