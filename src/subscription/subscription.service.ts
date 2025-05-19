@@ -21,14 +21,12 @@ export class SubscriptionService {
   async create(createSubscriptionDto: CreateSubscriptionDto) {
     const { email, city, frequency } = createSubscriptionDto;
 
-    // Validate city by checking if we can get weather data for it
     try {
       await this.weatherService.getCurrentWeather(city);
     } catch (error) {
       throw new BadRequestException('Invalid city. Unable to fetch weather data.');
     }
 
-    // Check for existing subscription
     const existing = await this.prisma.subscription.findFirst({
       where: { email, city },
     });
@@ -57,7 +55,6 @@ export class SubscriptionService {
     });
 
     try {
-      // Send confirmation email
       await this.emailService.sendConfirmationEmail(email, city, token);
     } catch (error) {
       // If email sending fails, delete the subscription and throw error

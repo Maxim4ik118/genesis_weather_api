@@ -15,8 +15,8 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   const config = new DocumentBuilder()
-    .setTitle('Weather backend API')
-    .setDescription('Weather backend API description')
+    .setTitle('Genesis Weather API')
+    .setDescription('Genesis Weather API description')
     .setVersion('0.1')
     .build();
   const document = SwaggerModule.createDocument(app, config);

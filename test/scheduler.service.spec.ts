@@ -92,7 +92,6 @@ describe('SchedulerService', () => {
       mockEmailService.sendWeatherUpdate.mockResolvedValue(undefined);
       mockPrismaService.weatherData.create.mockResolvedValue({ id: 1, ...mockWeatherData });
 
-      // Call private method using any type assertion
       await (service as any).sendUpdates('hourly');
 
       expect(mockPrismaService.subscription.findMany).toHaveBeenCalledWith({

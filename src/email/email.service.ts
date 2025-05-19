@@ -8,42 +8,23 @@ export class EmailService {
   private readonly isDevelopment = process.env.NODE_ENV !== 'production';
 
   constructor() {
-    // if (this.isDevelopment) {
-    //   // In development, just log the emails
-    //   this.logger.log(
-    //     'Running in development mode - emails will be logged to console',
-    //   );
-    //   this.transporter = {
-    //     sendMail: async (mailOptions: any) => {
-    //       this.logger.log('Development Mode Email:');
-    //       this.logger.log('------------------------');
-    //       this.logger.log(`To: ${mailOptions.to}`);
-    //       this.logger.log(`Subject: ${mailOptions.subject}`);
-    //       this.logger.log('Content:');
-    //       this.logger.log(mailOptions.html);
-    //       this.logger.log('------------------------');
-    //       return { accepted: [mailOptions.to] };
-    //     },
-    //   };
-    // } else {
-      // In production, use real email service
-      if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-        this.logger.error(
-          'Email credentials not provided. Email service will not work.',
-        );
-      }
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      this.logger.error(
+        'Email credentials not provided. Email service will not work.',
+      );
+      return;
+    }
 
-      this.transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: parseInt(process.env.SMTP_PORT || '587'),
-        secure: false,
-        service: 'Gmail',
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
-    // }
+    this.transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false,
+      service: 'Gmail',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
   }
 
   async sendConfirmationEmail(

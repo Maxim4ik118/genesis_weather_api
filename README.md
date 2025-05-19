@@ -33,13 +33,17 @@ npm install
 
 3. Set up environment variables:
 ```bash
-cp .env.example .env
+cp .env.example .env.dev
 ```
-Edit the `.env` file with your configuration values.
+Edit the `.env.dev`, `.env.prod` file with your configuration values.
 
 4. Set up the database:
 ```bash
-npx prisma migrate deploy
+npm run migrate:dev
+```
+4.1 (optional)To see the UI of the database:
+```bash
+npm run studio:dev
 ```
 
 5. Start the application:
@@ -51,6 +55,35 @@ npm run start:dev
 npm run build
 npm run start:prod
 ```
+
+## Docker Deployment
+
+1. Build the Docker image:
+```bash
+docker build -t weather-subscription-service .
+```
+
+2. Run the container:
+```bash
+docker run -d \
+  --name weather-service \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e DATABASE_URL=postgresql://postgres:postgres@db:5432/weather_db \
+  -e WEATHER_API_KEY=your_weather_api_key \
+  -e SMTP_HOST=smtp.gmail.com \
+  -e SMTP_PORT=587 \
+  -e SMTP_USER=your_email@gmail.com \
+  -e SMTP_PASS=your_app_specific_password \
+  weather-subscription-service
+```
+
+3. Using Docker Compose (recommended):
+```bash
+docker-compose up -d
+```
+
+The `docker-compose.yml` file includes both the application and PostgreSQL database services. Make sure to set up your environment variables in the `.env` file before running Docker Compose.
 
 ## Environment Variables
 

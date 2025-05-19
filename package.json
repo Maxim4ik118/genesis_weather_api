@@ -1,10 +1,9 @@
 {
   "name": "weather_api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "MIT",
+  "description": "Weather Subscription Service",
+  "author": "Maxi",
+  "private": "false",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
